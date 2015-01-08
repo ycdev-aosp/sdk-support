@@ -1,0 +1,2 @@
+include ':support-v4'
+project(':support-v4').projectDir = file('v4/src')
