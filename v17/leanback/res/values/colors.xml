@@ -32,12 +32,11 @@
 
     <color name="lb_error_background_color_opaque">#262626</color>
     <color name="lb_error_background_color_translucent">#E6000000</color>
-    <color name="lb_error_message_color_on_opaque">#80EEEEEE</color>
-    <color name="lb_error_message_color_on_translucent">#80555555</color>
+    <color name="lb_error_message">#80EEEEEE</color>
 
     <color name="lb_action_text_color">#EEEEEE</color>
 
-    <color name="lb_search_bar_text">#FFEEEEEE</color>
+    <color name="lb_search_bar_text">#80EEEEEE</color>
     <color name="lb_search_bar_text_speech_mode">#FF444444</color>
     <color name="lb_search_bar_hint">#FF888888</color>
     <color name="lb_search_bar_hint_speech_mode">#66222222</color>
@@ -56,6 +55,7 @@
     <color name="lb_default_search_color">#FFFFAA3F</color>
 
     <color name="lb_control_button_color">#66EEEEEE</color>
+    <color name="lb_control_button_text">#EEEEEE</color>
     <color name="lb_playback_progress_color_no_theme">#ff40c4ff</color>
     <color name="lb_playback_icon_highlight_no_theme">#ff40c4ff</color>
     <color name="lb_playback_secondary_progress_color">#33FFFFFF</color>
@@ -65,4 +65,14 @@
     <color name="lb_playback_controls_time_text_color">#B2EEEEEE</color>
 
     <color name="lb_search_plate_hint_text_color">#FFCCCCCC</color>
+
+    <!-- GuidedStepFragment -->
+    <color name="lb_tv_white">#FFCCCCCC</color>
+
+    <!-- refactor naming here -->
+    <color name="lb_guidedactions_background">#FF111111</color>
+    <color name="lb_guidedactions_selector_color">#26FFFFFF</color>
+    <color name="lb_guidedactions_item_unselected_text_color">#FFF1F1F1</color>
+    <!-- end refactor naming -->
+
 </resources>
