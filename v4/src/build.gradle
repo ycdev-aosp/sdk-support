@@ -18,7 +18,7 @@ android {
             java.srcDirs = ['java', 'donut', 'eclair', 'eclair-mr1', 'froyo', 'gingerbread',
                             'honeycomb', 'honeycomb_mr1', 'honeycomb_mr2', 'ics', 'ics-mr1',
                             'jellybean', 'jellybean-mr1', 'jellybean-mr2', 'kitkat',
-                            'api20', 'api21']
+                            'api20', 'api21', 'api22']
             aidl.srcDirs = ['java']
         }
 
