@@ -17,9 +17,9 @@
 <resources>
     <dimen name="lb_list_row_height">224dp</dimen>
 
-    <dimen name="lb_browse_padding_left">56dp</dimen>
+    <dimen name="lb_browse_padding_start">56dp</dimen>
     <dimen name="lb_browse_padding_top">27dp</dimen>
-    <dimen name="lb_browse_padding_right">56dp</dimen>
+    <dimen name="lb_browse_padding_end">56dp</dimen>
     <dimen name="lb_browse_padding_bottom">48dp</dimen>
     <dimen name="lb_browse_rows_margin_start">238dp</dimen>
     <dimen name="lb_browse_rows_margin_top">167dp</dimen>
@@ -27,9 +27,8 @@
     <dimen name="lb_vertical_grid_padding_bottom">87dp</dimen>
 
     <dimen name="lb_browse_title_height">60dp</dimen>
-    <dimen name="lb_browse_title_icon_height">52dp</dimen>
-    <dimen name="lb_browse_title_icon_width">52dp</dimen>
-    <dimen name="lb_browse_title_icon_margin_right">52dp</dimen>
+    <dimen name="lb_browse_title_icon_max_width">584dp</dimen>
+    <dimen name="lb_browse_title_icon_height">60dp</dimen>
     <dimen name="lb_browse_title_text_size">44sp</dimen>
     <dimen name="lb_browse_title_text_width">584dp</dimen>
 
@@ -44,7 +43,7 @@
     <dimen name="lb_browse_header_text_size">20sp</dimen>
     <dimen name="lb_browse_header_height">24dp</dimen>
     <dimen name="lb_browse_header_fading_length">12dp</dimen>
-    <dimen name="lb_browse_header_padding_right">8dp</dimen>
+    <dimen name="lb_browse_header_padding_end">8dp</dimen>
 
     <item name="lb_browse_header_select_duration" format="integer" type="dimen">150</item>
     <item name="lb_browse_header_unselect_alpha" type="fraction">50%</item>
@@ -59,31 +58,35 @@
     <dimen name="lb_browse_expanded_selected_row_top_padding">16dp</dimen>
     <dimen name="lb_browse_expanded_row_no_hovercard_bottom_padding">28dp</dimen>
 
+    <item name="lb_focus_zoom_factor_xsmall" type="fraction">106%</item>
     <item name="lb_focus_zoom_factor_small" type="fraction">110%</item>
     <item name="lb_focus_zoom_factor_medium" type="fraction">114%</item>
     <item name="lb_focus_zoom_factor_large" type="fraction">118%</item>
 
     <dimen name="lb_details_overview_height_large">274dp</dimen>
     <dimen name="lb_details_overview_height_small">159dp</dimen>
-    <dimen name="lb_details_overview_margin_left">132dp</dimen>
-    <dimen name="lb_details_overview_margin_right">132dp</dimen>
+    <dimen name="lb_details_overview_margin_start">132dp</dimen>
+    <dimen name="lb_details_overview_margin_end">132dp</dimen>
     <dimen name="lb_details_overview_margin_bottom">40dp</dimen>
 
     <dimen name="lb_details_overview_description_margin_top">24dp</dimen>
-    <dimen name="lb_details_overview_description_margin_left">24dp</dimen>
-    <dimen name="lb_details_overview_description_margin_right">24dp</dimen>
+    <dimen name="lb_details_overview_description_margin_start">24dp</dimen>
+    <dimen name="lb_details_overview_description_margin_end">24dp</dimen>
     <dimen name="lb_details_overview_description_margin_bottom">12dp</dimen>
     <dimen name="lb_details_overview_image_margin_horizontal">24dp</dimen>
     <dimen name="lb_details_overview_image_margin_vertical">24dp</dimen>
     <dimen name="lb_details_overview_action_items_margin">16dp</dimen>
     <item name="lb_details_overview_action_select_duration" format="integer" type="dimen">150</item>
-    <dimen name="lb_details_overview_actions_padding_left">294dp</dimen>
-    <dimen name="lb_details_overview_actions_padding_right">132dp</dimen>
+    <dimen name="lb_details_overview_actions_padding_start">294dp</dimen>
+    <dimen name="lb_details_overview_actions_padding_end">132dp</dimen>
     <dimen name="lb_details_overview_actions_height">56dp</dimen>
     <dimen name="lb_details_overview_actions_fade_size">16dp</dimen>
     <dimen name="lb_details_rows_align_top">167dp</dimen>
 
     <dimen name="lb_details_description_title_text_size">34sp</dimen>
+    <dimen name="lb_details_description_title_resized_text_size">28sp</dimen>
+    <dimen name="lb_details_description_title_padding_adjust_top">-1dp</dimen>
+    <dimen name="lb_details_description_title_padding_adjust_bottom">2dp</dimen>
     <dimen name="lb_details_description_subtitle_text_size">16sp</dimen>
     <dimen name="lb_details_description_body_text_size">14sp</dimen>
     <dimen name="lb_details_description_title_line_spacing">40dp</dimen>
@@ -100,8 +103,8 @@
     <dimen name="lb_action_1_line_height">36dp</dimen>
     <dimen name="lb_action_2_lines_height">56dp</dimen>
     <dimen name="lb_action_padding_horizontal">24dp</dimen>
-    <dimen name="lb_action_with_icon_padding_left">14dp</dimen>
-    <dimen name="lb_action_with_icon_padding_right">20dp</dimen>
+    <dimen name="lb_action_with_icon_padding_start">14dp</dimen>
+    <dimen name="lb_action_with_icon_padding_end">20dp</dimen>
     <dimen name="lb_action_icon_margin">12dp</dimen>
     <dimen name="lb_action_text_size">16sp</dimen>
     <dimen name="lb_action_button_corner_radius">2dp</dimen>
@@ -111,8 +114,8 @@
     <dimen name="lb_playback_major_fade_translate_y">200dp</dimen>
     <dimen name="lb_playback_minor_fade_translate_y">16dp</dimen>
     <dimen name="lb_playback_controls_card_height">176dp</dimen>
-    <dimen name="lb_playback_controls_margin_left">132dp</dimen>
-    <dimen name="lb_playback_controls_margin_right">132dp</dimen>
+    <dimen name="lb_playback_controls_margin_start">132dp</dimen>
+    <dimen name="lb_playback_controls_margin_end">132dp</dimen>
     <dimen name="lb_playback_controls_margin_bottom">20dp</dimen>
     <dimen name="lb_playback_description_margin_top">24dp</dimen>
     <dimen name="lb_playback_description_margin_start">24dp</dimen>
@@ -131,6 +134,7 @@
     <dimen name="lb_control_button_secondary_height">48dp</dimen>
     <dimen name="lb_control_icon_width">32dp</dimen>
     <dimen name="lb_control_icon_height">32dp</dimen>
+    <dimen name="lb_control_button_text_size">22sp</dimen>
 
     <dimen name="lb_error_image_max_height">120dp</dimen>
     <integer name="lb_error_message_max_lines">1</integer>
@@ -144,27 +148,27 @@
 
     <!-- Search bar -->
     <dimen name="lb_search_bar_height">60dp</dimen>
-    <dimen name="lb_search_bar_padding_left">56dp</dimen>
+    <dimen name="lb_search_bar_padding_start">56dp</dimen>
     <dimen name="lb_search_bar_padding_top">27dp</dimen>
 
-    <dimen name="lb_search_bar_text_size">22sp</dimen>
+    <dimen name="lb_search_bar_text_size">18sp</dimen>
     <dimen name="lb_search_bar_unfocused_text_size">18sp</dimen>
     <dimen name="lb_search_bar_items_layout_margin_top">27dp</dimen>
     <dimen name="lb_search_bar_items_width">600dp</dimen>
     <dimen name="lb_search_bar_items_height">56dp</dimen>
-    <dimen name="lb_search_bar_items_margin_left">70dp</dimen>
+    <dimen name="lb_search_bar_items_margin_start">70dp</dimen>
     <dimen name="lb_search_bar_inner_margin_top">2dp</dimen>
     <dimen name="lb_search_bar_inner_margin_bottom">2dp</dimen>
     <dimen name="lb_search_bar_icon_height">32dp</dimen>
     <dimen name="lb_search_bar_icon_width">32dp</dimen>
-    <dimen name="lb_search_bar_icon_margin_left">16dp</dimen>
-    <dimen name="lb_search_bar_edit_text_margin_left">24dp</dimen>
-    <dimen name="lb_search_bar_hint_margin_left">52dp</dimen>
+    <dimen name="lb_search_bar_icon_margin_start">16dp</dimen>
+    <dimen name="lb_search_bar_edit_text_margin_start">24dp</dimen>
+    <dimen name="lb_search_bar_hint_margin_start">52dp</dimen>
 
 
     <!-- Search Fragment -->
     <dimen name="lb_search_browse_rows_align_top">120dp</dimen>
-    <dimen name="lb_search_browse_row_padding_left">56dp</dimen>
+    <dimen name="lb_search_browse_row_padding_start">56dp</dimen>
 
     <dimen name="lb_search_orb_size">52dp</dimen>
     <item name="lb_search_orb_focused_zoom" type="fraction">120%</item>
@@ -173,12 +177,12 @@
 
     <dimen name="lb_search_orb_margin_top">4dp</dimen>
     <dimen name="lb_search_orb_margin_bottom">4dp</dimen>
-    <dimen name="lb_search_orb_margin_left">4dp</dimen>
-    <dimen name="lb_search_orb_margin_right">4dp</dimen>
+    <dimen name="lb_search_orb_margin_start">4dp</dimen>
+    <dimen name="lb_search_orb_margin_end">4dp</dimen>
 
     <dimen name="lb_search_bar_speech_orb_size">52dp</dimen>
     <item name="lb_search_bar_speech_orb_max_level_zoom" type="fraction">144%</item>
-    <dimen name="lb_search_bar_speech_orb_margin_left">56dp</dimen>
+    <dimen name="lb_search_bar_speech_orb_margin_start">56dp</dimen>
 
     <!-- BasicCardView -->
     <dimen name="lb_basic_card_main_width">140dp</dimen>
@@ -201,5 +205,46 @@
     <dimen name="lb_browse_headers_z">@dimen/lb_material_shadow_focused_z</dimen>
 
     <dimen name="lb_rounded_rect_corner_radius">2dp</dimen>
+
+    <!-- GuidedStepFragment -->
+    <dimen name="lb_guidedstep_guidance_section_width">576dp</dimen>
+    <dimen name="lb_guidedstep_slide_start_distance">-200dp</dimen>
+    <dimen name="lb_guidedstep_slide_end_distance">200dp</dimen>
+
+    <dimen name="lb_guidance_entry_translationX">-120dp</dimen>
+
+    <dimen name="lb_guidedactions_entry_translationX">384dp</dimen>
+    <dimen name="lb_guidedactions_section_width">384dp</dimen>
+    <dimen name="lb_guidedactions_section_width_with_shadow">400dp</dimen>
+    <dimen name="lb_guidedactions_elevation">12dp</dimen>
+    <dimen name="lb_guidedactions_selector_min_height">8dp</dimen>
+    <dimen name="lb_guidedactions_vertical_padding">12dp</dimen>
+
+    <item name="lb_guidedactions_item_unselected_text_alpha" format="float" type="string">1.00</item>
+    <item name="lb_guidedactions_item_unselected_description_text_alpha" format="float" type="string">0.50</item>
+    <item name="lb_guidedactions_item_enabled_chevron_alpha" format="float" type="string">1.00</item>
+    <item name="lb_guidedactions_item_disabled_chevron_alpha" format="float" type="string">0.50</item>
+
+    <dimen name="lb_guidedactions_item_text_width">248dp</dimen>
+    <dimen name="lb_guidedactions_item_text_width_no_icon">284dp</dimen>
+    <dimen name="lb_guidedactions_item_min_height">64dp</dimen>
+    <dimen name="lb_guidedactions_item_start_padding">20dp</dimen>
+    <dimen name="lb_guidedactions_item_end_padding">28dp</dimen>
+    <dimen name="lb_guidedactions_item_delimiter_padding">4dp</dimen>
+    <dimen name="lb_guidedactions_item_checkmark_diameter">8dp</dimen>
+    <dimen name="lb_guidedactions_item_icon_width">32dp</dimen>
+    <dimen name="lb_guidedactions_item_icon_height">32dp</dimen>
+    <dimen name="lb_guidedactions_item_title_font_size">18sp</dimen>
+    <dimen name="lb_guidedactions_item_description_font_size">12sp</dimen>
+
+    <integer name="lb_guidedstep_entry_animation_delay">550</integer>
+    <integer name="lb_guidedstep_entry_animation_duration">250</integer>
+
+    <integer name="lb_guidedactions_item_animation_duration">100</integer>
+    <integer name="lb_guidedactions_animation_duration">150</integer>
+    <integer name="lb_guidedactions_item_title_min_lines">1</integer>
+    <integer name="lb_guidedactions_item_title_max_lines">3</integer>
+    <integer name="lb_guidedactions_item_description_min_lines">2</integer>
+    <!-- end GuidedStepFragment -->
 
 </resources>

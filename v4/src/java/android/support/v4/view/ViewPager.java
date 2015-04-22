@@ -167,7 +167,6 @@ public class ViewPager extends ViewGroup {
 
     private boolean mIsBeingDragged;
     private boolean mIsUnableToDrag;
-    private boolean mIgnoreGutter;
     private int mDefaultGutterSize;
     private int mGutterSize;
     private int mTouchSlop;
@@ -1749,6 +1748,9 @@ public class ViewPager extends ViewGroup {
             int y = mScroller.getCurrY();
             if (oldX != x || oldY != y) {
                 scrollTo(x, y);
+                if (x != oldX) {
+                    pageScrolled(x);
+                }
             }
         }
         mPopulatePending = false;

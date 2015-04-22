@@ -19,19 +19,22 @@ package android.support.v4.app;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.util.DebugUtils;
 import android.support.v4.util.LogWriter;
+import android.support.v4.view.LayoutInflaterFactory;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -399,6 +402,7 @@ final class FragmentManagerState implements Parcelable {
  * Callbacks from FragmentManagerImpl to its container.
  */
 interface FragmentContainer {
+    @Nullable
     public View findViewById(@IdRes int id);
     public boolean hasView();
 }
@@ -406,7 +410,7 @@ interface FragmentContainer {
 /**
  * Container for fragments associated with an activity.
  */
-final class FragmentManagerImpl extends FragmentManager implements LayoutInflater.Factory {
+final class FragmentManagerImpl extends FragmentManager implements LayoutInflaterFactory {
     static boolean DEBUG = false;
     static final String TAG = "FragmentManager";
     
@@ -921,7 +925,11 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                                 f.mSavedFragmentState), null, f.mSavedFragmentState);
                         if (f.mView != null) {
                             f.mInnerView = f.mView;
-                            f.mView = NoSaveStateFrameLayout.wrap(f.mView);
+                            if (Build.VERSION.SDK_INT >= 11) {
+                                ViewCompat.setSaveFromParentEnabled(f.mView, false);
+                            } else {
+                                f.mView = NoSaveStateFrameLayout.wrap(f.mView);
+                            }
                             if (f.mHidden) f.mView.setVisibility(View.GONE);
                             f.onViewCreated(f.mView, f.mSavedFragmentState);
                         } else {
@@ -948,7 +956,11 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                                     f.mSavedFragmentState), container, f.mSavedFragmentState);
                             if (f.mView != null) {
                                 f.mInnerView = f.mView;
-                                f.mView = NoSaveStateFrameLayout.wrap(f.mView);
+                                if (Build.VERSION.SDK_INT >= 11) {
+                                    ViewCompat.setSaveFromParentEnabled(f.mView, false);
+                                } else {
+                                    f.mView = NoSaveStateFrameLayout.wrap(f.mView);
+                                }
                                 if (container != null) {
                                     Animation anim = loadAnimation(f, transit, true,
                                             transitionStyle);
@@ -2106,7 +2118,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         if (!"fragment".equals(name)) {
             return null;
         }
@@ -2126,7 +2138,6 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             return null;
         }
 
-        View parent = null; // NOTE: no way to get parent pre-Honeycomb.
         int containerId = parent != null ? parent.getId() : 0;
         if (containerId == View.NO_ID && id == View.NO_ID && tag == null) {
             throw new IllegalArgumentException(attrs.getPositionDescription()
@@ -2198,7 +2209,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         return fragment.mView;
     }
 
-    LayoutInflater.Factory getLayoutInflaterFactory() {
+    LayoutInflaterFactory getLayoutInflaterFactory() {
         return this;
     }
 
