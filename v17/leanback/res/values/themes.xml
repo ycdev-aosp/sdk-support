@@ -95,6 +95,11 @@
         <item name="android:windowReturnTransition">@transition/lb_browse_return_transition</item>
     </style>
 
+    <style name="Theme.Leanback.VerticalGrid" parent="Theme.Leanback">
+        <item name="android:windowEnterTransition">@transition/lb_vertical_grid_enter_transition</item>
+        <item name="android:windowReturnTransition">@transition/lb_vertical_grid_return_transition</item>
+    </style>
+
     <style name="Theme.Leanback.Details" parent="Theme.Leanback">
         <item name="android:windowEnterTransition">@transition/lb_details_enter_transition</item>
         <item name="android:windowReturnTransition">@transition/lb_details_return_transition</item>
@@ -102,15 +107,21 @@
         <item name="android:windowSharedElementReturnTransition">@transition/lb_shared_element_return_transition</item>
     </style>
 
+    <!-- Theme for the details without shared element transition -->
+    <style name="Theme.Leanback.Details.NoSharedElementTransition">
+        <item name="android:windowSharedElementEnterTransition">@null</item>
+        <item name="android:windowSharedElementReturnTransition">@null</item>
+    </style>
+
     <style name="Theme.Leanback.GuidedStep" parent="Theme.LeanbackBase">
         <item name="guidedStepThemeFlag">true</item>
 
-        <item name="guidedStepEntryAnimation">@animator/lb_guidedstep_slide_in_from_end</item>
-        <item name="guidedStepExitAnimation">@animator/lb_guidedstep_slide_out_to_start</item>
-        <item name="guidedStepReentryAnimation">@animator/lb_guidedstep_slide_in_from_start</item>
-        <item name="guidedStepReturnAnimation">@animator/lb_guidedstep_slide_out_to_end</item>
-        <item name="guidanceEntryAnimation">@animator/lb_guidance_entry</item>
-        <item name="guidedActionsEntryAnimation">@animator/lb_guidedactions_entry</item>
+        <item name="android:windowEnterTransition">@transition/lb_guidedstep_activity_enter</item>
+
+        <item name="guidedStepBackground">?android:attr/windowBackground</item>
+
+        <item name="guidedStepImeAppearingAnimation">@animator/lb_guidedstep_slide_up</item>
+        <item name="guidedStepImeDisappearingAnimation">@animator/lb_guidedstep_slide_down</item>
 
         <item name="guidanceContainerStyle">@style/Widget.Leanback.GuidanceContainerStyle</item>
         <item name="guidanceIconStyle">@style/Widget.Leanback.GuidanceIconStyle</item>

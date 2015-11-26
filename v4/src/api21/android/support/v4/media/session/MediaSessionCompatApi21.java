@@ -132,7 +132,7 @@ class MediaSessionCompatApi21 {
         ((MediaSession) sessionObj).setExtras(extras);
     }
 
-    public static interface Callback {
+    static interface Callback {
         public void onCommand(String command, Bundle extras, ResultReceiver cb);
         public boolean onMediaButtonEvent(Intent mediaButtonIntent);
         public void onPlay();
@@ -164,7 +164,8 @@ class MediaSessionCompatApi21 {
 
         @Override
         public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
-            return mCallback.onMediaButtonEvent(mediaButtonIntent);
+            return mCallback.onMediaButtonEvent(mediaButtonIntent)
+                    || super.onMediaButtonEvent(mediaButtonIntent);
         }
 
         @Override

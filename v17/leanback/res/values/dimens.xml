@@ -100,6 +100,19 @@
     <integer name="lb_details_description_body_max_lines">5</integer>
     <integer name="lb_details_description_body_min_lines">3</integer>
 
+    <dimen name="lb_details_v2_logo_max_width">150dp</dimen>
+    <dimen name="lb_details_v2_logo_max_height">210dp</dimen>
+    <dimen name="lb_details_v2_blank_height">160dp</dimen>
+    <dimen name="lb_details_v2_card_height">540dp</dimen>
+    <dimen name="lb_details_v2_left">270dip</dimen>
+    <dimen name="lb_details_v2_logo_margin_start">128dp</dimen>
+    <dimen name="lb_details_v2_actions_height">56dip</dimen>
+    <dimen name="lb_details_v2_description_margin_start">24dp</dimen>
+    <dimen name="lb_details_v2_description_margin_end">54dp</dimen>
+    <dimen name="lb_details_v2_description_margin_top">24dp</dimen>
+    <dimen name="lb_details_v2_align_pos_for_actions">270dp</dimen>
+    <dimen name="lb_details_v2_align_pos_for_description">0dp</dimen>
+
     <dimen name="lb_action_1_line_height">36dp</dimen>
     <dimen name="lb_action_2_lines_height">56dp</dimen>
     <dimen name="lb_action_padding_horizontal">24dp</dimen>
@@ -188,11 +201,15 @@
     <dimen name="lb_basic_card_main_width">140dp</dimen>
     <dimen name="lb_basic_card_main_height">188dp</dimen>
     <dimen name="lb_basic_card_info_height">52dp</dimen>
-    <dimen name="lb_basic_card_info_padding">6dp</dimen>
-    <dimen name="lb_basic_card_info_text_margin">2dp</dimen>
-    <dimen name="lb_basic_card_title_text_size">16sp</dimen>
+    <dimen name="lb_basic_card_info_height_no_content">34dp</dimen>
+    <dimen name="lb_basic_card_info_padding_top">7dp</dimen>
+    <dimen name="lb_basic_card_info_padding_bottom">8dp</dimen>
+    <dimen name="lb_basic_card_info_padding_horizontal">11dp</dimen>
+    <dimen name="lb_basic_card_info_text_margin">1dp</dimen>
+    <dimen name="lb_basic_card_title_text_size">14sp</dimen>
     <dimen name="lb_basic_card_content_text_size">12sp</dimen>
     <dimen name="lb_basic_card_info_badge_size">16dp</dimen>
+    <dimen name="lb_basic_card_info_badge_margin">4dp</dimen>
 
     <!-- z based shadow -->
     <dimen name="lb_material_shadow_normal_z">6dp</dimen>
@@ -210,12 +227,13 @@
     <dimen name="lb_guidedstep_guidance_section_width">576dp</dimen>
     <dimen name="lb_guidedstep_slide_start_distance">-200dp</dimen>
     <dimen name="lb_guidedstep_slide_end_distance">200dp</dimen>
+    <dimen name="lb_guidedstep_slide_ime_distance">-100dp</dimen>
 
     <dimen name="lb_guidance_entry_translationX">-120dp</dimen>
 
     <dimen name="lb_guidedactions_entry_translationX">384dp</dimen>
     <dimen name="lb_guidedactions_section_width">384dp</dimen>
-    <dimen name="lb_guidedactions_section_width_with_shadow">400dp</dimen>
+    <dimen name="lb_guidedactions_section_shadow_width">16dp</dimen>
     <dimen name="lb_guidedactions_elevation">12dp</dimen>
     <dimen name="lb_guidedactions_selector_min_height">8dp</dimen>
     <dimen name="lb_guidedactions_vertical_padding">12dp</dimen>

@@ -26,9 +26,9 @@
                 android:layout_height="wrap_content"/>
 
         <CheckBox
-                android:id="@+id/enableChangeAnimations"
+                android:id="@+id/enableInPlaceChange"
                 android:checked="false"
-                android:text="@string/enableChangeAnimations"
+                android:text="@string/enableInPlaceChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -44,7 +44,7 @@
                 android:layout_weight=".5"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:onClick="deleteItem"
+                android:onClick="deleteSelectedItems"
                 android:text="@string/delete_item"/>
 
         <Button

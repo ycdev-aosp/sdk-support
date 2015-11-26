@@ -16,31 +16,26 @@
 
 package com.example.android.supportv7.media;
 
-import com.example.android.supportv7.R;
-
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentFilter.MalformedMimeTypeException;
 import android.content.IntentSender;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaRouter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.PendingIntent;
 import android.support.v7.media.MediaControlIntent;
-import android.support.v7.media.MediaItemStatus;
-import android.support.v7.media.MediaRouteProvider;
-import android.support.v7.media.MediaRouter.ControlRequestCallback;
-import android.support.v7.media.MediaRouteProviderDescriptor;
 import android.support.v7.media.MediaRouteDescriptor;
+import android.support.v7.media.MediaRouteProvider;
+import android.support.v7.media.MediaRouteProviderDescriptor;
+import android.support.v7.media.MediaRouter.ControlRequestCallback;
 import android.support.v7.media.MediaSessionStatus;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Surface;
-import android.view.SurfaceHolder;
+
+import com.example.android.supportv7.R;
 
 import java.util.ArrayList;
 
@@ -56,6 +51,9 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
     private static final String VARIABLE_VOLUME_BASIC_ROUTE_ID = "variable_basic";
     private static final String VARIABLE_VOLUME_QUEUING_ROUTE_ID = "variable_queuing";
     private static final String VARIABLE_VOLUME_SESSION_ROUTE_ID = "variable_session";
+    private static final String VARIABLE_VOLUME_ROUTE_GROUP_ID = "variable_group";
+    private static final String MIXED_VOLUME_ROUTE_GROUP_ID = "mixed_group";
+
     private static final int VOLUME_MAX = 10;
 
     /**
@@ -135,18 +133,16 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
         f6.addAction(MediaControlIntent.ACTION_GET_SESSION_STATUS);
         f6.addAction(MediaControlIntent.ACTION_END_SESSION);
 
-        CONTROL_FILTERS_BASIC = new ArrayList<IntentFilter>();
+        CONTROL_FILTERS_BASIC = new ArrayList<>();
         CONTROL_FILTERS_BASIC.add(f1);
         CONTROL_FILTERS_BASIC.add(f2);
         CONTROL_FILTERS_BASIC.add(f3);
 
-        CONTROL_FILTERS_QUEUING =
-                new ArrayList<IntentFilter>(CONTROL_FILTERS_BASIC);
+        CONTROL_FILTERS_QUEUING = new ArrayList<>(CONTROL_FILTERS_BASIC);
         CONTROL_FILTERS_QUEUING.add(f4);
         CONTROL_FILTERS_QUEUING.add(f5);
 
-        CONTROL_FILTERS_SESSION =
-                new ArrayList<IntentFilter>(CONTROL_FILTERS_QUEUING);
+        CONTROL_FILTERS_SESSION = new ArrayList<>(CONTROL_FILTERS_QUEUING);
         CONTROL_FILTERS_SESSION.add(f6);
     }
 
@@ -159,7 +155,6 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
     }
 
     private int mVolume = 5;
-    private int mEnqueueCount;
 
     public SampleMediaRouteProvider(Context context) {
         super(context);
@@ -230,12 +225,46 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                 .setVolume(mVolume)
                 .build();
 
-        MediaRouteProviderDescriptor providerDescriptor =
-                new MediaRouteProviderDescriptor.Builder()
+        MediaRouteDescriptor routeDescriptor5 = new MediaRouteDescriptor.Builder(
+                VARIABLE_VOLUME_ROUTE_GROUP_ID,
+                r.getString(R.string.variable_volume_route_group_name))
+                .addGroupMemberId(VARIABLE_VOLUME_BASIC_ROUTE_ID)
+                .addGroupMemberId(VARIABLE_VOLUME_QUEUING_ROUTE_ID)
+                .setDescription(r.getString(R.string.sample_route_description))
+                .addControlFilters(CONTROL_FILTERS_SESSION)
+                .setPlaybackStream(AudioManager.STREAM_MUSIC)
+                .setPlaybackType(MediaRouter.RouteInfo.PLAYBACK_TYPE_REMOTE)
+                .setVolumeHandling(MediaRouter.RouteInfo.PLAYBACK_VOLUME_VARIABLE)
+                .setVolumeMax(VOLUME_MAX)
+                .setVolume(mVolume)
+                .build();
+
+        Uri iconUri = Uri.parse("android.resource://com.example.android.supportv7/"
+                + R.drawable.ic_android);
+        MediaRouteDescriptor routeDescriptor6 = new MediaRouteDescriptor.Builder(
+                MIXED_VOLUME_ROUTE_GROUP_ID,
+                r.getString(R.string.mixed_volume_route_group_name))
+                .addGroupMemberId(FIXED_VOLUME_ROUTE_ID)
+                .addGroupMemberId(VARIABLE_VOLUME_BASIC_ROUTE_ID)
+                .addGroupMemberId(VARIABLE_VOLUME_QUEUING_ROUTE_ID)
+                .addGroupMemberId(VARIABLE_VOLUME_SESSION_ROUTE_ID)
+                .setDescription(r.getString(R.string.sample_route_description))
+                .setIconUri(iconUri)
+                .addControlFilters(CONTROL_FILTERS_SESSION)
+                .setPlaybackStream(AudioManager.STREAM_MUSIC)
+                .setPlaybackType(MediaRouter.RouteInfo.PLAYBACK_TYPE_REMOTE)
+                .setVolumeHandling(MediaRouter.RouteInfo.PLAYBACK_VOLUME_VARIABLE)
+                .setVolumeMax(VOLUME_MAX)
+                .setVolume(mVolume)
+                .build();
+
+        MediaRouteProviderDescriptor providerDescriptor = new MediaRouteProviderDescriptor.Builder()
                 .addRoute(routeDescriptor1)
                 .addRoute(routeDescriptor2)
                 .addRoute(routeDescriptor3)
                 .addRoute(routeDescriptor4)
+                .addRoute(routeDescriptor5)
+                .addRoute(routeDescriptor6)
                 .build();
         setDescriptor(providerDescriptor);
     }
@@ -412,7 +441,6 @@ final class SampleMediaRouteProvider extends MediaRouteProvider {
                     callback.onError("Failed to open " + uri.toString(), null);
                 }
             }
-            mEnqueueCount +=1;
             return true;
         }
 

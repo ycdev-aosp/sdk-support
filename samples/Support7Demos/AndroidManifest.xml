@@ -60,8 +60,9 @@
         <!-- MediaRouter Support Samples -->
 
         <activity android:name=".media.SampleMediaRouterActivity"
+                android:configChanges="orientation|screenSize"
                 android:label="@string/sample_media_router_activity_dark"
-                android:theme="@style/Theme.AppCompat">
+                android:theme="@style/Theme.SampleMediaRouter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
@@ -69,8 +70,9 @@
         </activity>
 
         <activity android:name=".media.SampleMediaRouterActivity$Light"
+                android:configChanges="orientation|screenSize"
                 android:label="@string/sample_media_router_activity_light"
-                android:theme="@style/Theme.AppCompat.Light">
+                android:theme="@style/Theme.SampleMediaRouter.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
@@ -78,8 +80,9 @@
         </activity>
 
         <activity android:name=".media.SampleMediaRouterActivity$LightWithDarkActionBar"
+                android:configChanges="orientation|screenSize"
                 android:label="@string/sample_media_router_activity_light_with_dark_action_bar"
-                android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+                android:theme="@style/Theme.SampleMediaRouter.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
@@ -316,6 +319,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".app.DialogFragmentUsage"
+                  android:label="@string/dialogfragment_usage"
+                  android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
         <provider android:name=".app.RecentSuggestionsProvider"
                   android:authorities="com.example.android.supportv7.RecentSuggestionsProvider" />
 
@@ -366,6 +378,24 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".widget.StaggeredGridLayoutManagerActivity"
+                  android:label="@string/staggered_grid_layout_manager"
+                  android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".widget.AsyncListUtilActivity"
+                  android:label="@string/async_list_util"
+                  android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".view.CardViewActivity"
                   android:label="@string/card_view"
                   android:theme="@style/Theme.AppCompat">
@@ -388,5 +418,22 @@
                   android:label="@string/palette"
                   android:theme="@style/Theme.AppCompat" />
 
+        <!-- item touch helper demo activities-->
+        <activity android:name=".widget.touch.SwipeToDismissActivity"
+                  android:label="@string/swipe_to_dismiss_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".widget.touch.DragAndDropActivity"
+                  android:label="@string/drag_and_drop_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE"/>
+            </intent-filter>
+        </activity>
     </application>
+
+
 </manifest>

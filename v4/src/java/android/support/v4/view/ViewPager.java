@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
+import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.v4.os.ParcelableCompat;
 import android.support.v4.os.ParcelableCompatCreatorCallbacks;
@@ -55,6 +56,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Layout manager that allows the user to flip left and right
@@ -213,6 +215,7 @@ public class ViewPager extends ViewGroup {
     private boolean mCalledSuper;
     private int mDecorChildCount;
 
+    private List<OnPageChangeListener> mOnPageChangeListeners;
     private OnPageChangeListener mOnPageChangeListener;
     private OnPageChangeListener mInternalPageChangeListener;
     private OnAdapterChangeListener mAdapterChangeListener;
@@ -398,9 +401,7 @@ public class ViewPager extends ViewGroup {
             // PageTransformers can do complex things that benefit from hardware layers.
             enableLayers(newState != SCROLL_STATE_IDLE);
         }
-        if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrollStateChanged(newState);
-        }
+        dispatchOnScrollStateChanged(newState);
     }
 
     /**
@@ -543,11 +544,8 @@ public class ViewPager extends ViewGroup {
             // We don't have any idea how big we are yet and shouldn't have any pages either.
             // Just set things up and let the pending layout handle things.
             mCurItem = item;
-            if (dispatchSelected && mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageSelected(item);
-            }
-            if (dispatchSelected && mInternalPageChangeListener != null) {
-                mInternalPageChangeListener.onPageSelected(item);
+            if (dispatchSelected) {
+                dispatchOnPageSelected(item);
             }
             requestLayout();
         } else {
@@ -567,18 +565,12 @@ public class ViewPager extends ViewGroup {
         }
         if (smoothScroll) {
             smoothScrollTo(destX, 0, velocity);
-            if (dispatchSelected && mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageSelected(item);
-            }
-            if (dispatchSelected && mInternalPageChangeListener != null) {
-                mInternalPageChangeListener.onPageSelected(item);
+            if (dispatchSelected) {
+                dispatchOnPageSelected(item);
             }
         } else {
-            if (dispatchSelected && mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageSelected(item);
-            }
-            if (dispatchSelected && mInternalPageChangeListener != null) {
-                mInternalPageChangeListener.onPageSelected(item);
+            if (dispatchSelected) {
+                dispatchOnPageSelected(item);
             }
             completeScroll(false);
             scrollTo(destX, 0);
@@ -591,9 +583,51 @@ public class ViewPager extends ViewGroup {
      * scrolled. See {@link OnPageChangeListener}.
      *
      * @param listener Listener to set
+     *
+     * @deprecated Use {@link #addOnPageChangeListener(OnPageChangeListener)}
+     * and {@link #removeOnPageChangeListener(OnPageChangeListener)} instead.
      */
+    @Deprecated
     public void setOnPageChangeListener(OnPageChangeListener listener) {
         mOnPageChangeListener = listener;
+    }
+
+    /**
+     * Add a listener that will be invoked whenever the page changes or is incrementally
+     * scrolled. See {@link OnPageChangeListener}.
+     *
+     * <p>Components that add a listener should take care to remove it when finished.
+     * Other components that take ownership of a view may call {@link #clearOnPageChangeListeners()}
+     * to remove all attached listeners.</p>
+     *
+     * @param listener listener to add
+     */
+    public void addOnPageChangeListener(OnPageChangeListener listener) {
+        if (mOnPageChangeListeners == null) {
+            mOnPageChangeListeners = new ArrayList<>();
+        }
+        mOnPageChangeListeners.add(listener);
+    }
+
+    /**
+     * Remove a listener that was previously added via
+     * {@link #addOnPageChangeListener(OnPageChangeListener)}.
+     *
+     * @param listener listener to remove
+     */
+    public void removeOnPageChangeListener(OnPageChangeListener listener) {
+        if (mOnPageChangeListeners != null) {
+            mOnPageChangeListeners.remove(listener);
+        }
+    }
+
+    /**
+     * Remove all listeners that are notified of any changes in scroll state or position.
+     */
+    public void clearOnPageChangeListeners() {
+        if (mOnPageChangeListeners != null) {
+            mOnPageChangeListeners.clear();
+        }
     }
 
     /**
@@ -1671,6 +1705,7 @@ public class ViewPager extends ViewGroup {
      * @param offset Value from [0, 1) indicating the offset from the page at position.
      * @param offsetPixels Value in pixels indicating the offset from position.
      */
+    @CallSuper
     protected void onPageScrolled(int position, float offset, int offsetPixels) {
         // Offset any decor views if needed - keep them on-screen at all times.
         if (mDecorChildCount > 0) {
@@ -1712,12 +1747,7 @@ public class ViewPager extends ViewGroup {
             }
         }
 
-        if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageScrolled(position, offset, offsetPixels);
-        }
-        if (mInternalPageChangeListener != null) {
-            mInternalPageChangeListener.onPageScrolled(position, offset, offsetPixels);
-        }
+        dispatchOnPageScrolled(position, offset, offsetPixels);
 
         if (mPageTransformer != null) {
             final int scrollX = getScrollX();
@@ -1734,6 +1764,57 @@ public class ViewPager extends ViewGroup {
         }
 
         mCalledSuper = true;
+    }
+
+    private void dispatchOnPageScrolled(int position, float offset, int offsetPixels) {
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageScrolled(position, offset, offsetPixels);
+        }
+        if (mOnPageChangeListeners != null) {
+            for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
+                OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+                if (listener != null) {
+                    listener.onPageScrolled(position, offset, offsetPixels);
+                }
+            }
+        }
+        if (mInternalPageChangeListener != null) {
+            mInternalPageChangeListener.onPageScrolled(position, offset, offsetPixels);
+        }
+    }
+
+    private void dispatchOnPageSelected(int position) {
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageSelected(position);
+        }
+        if (mOnPageChangeListeners != null) {
+            for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
+                OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+                if (listener != null) {
+                    listener.onPageSelected(position);
+                }
+            }
+        }
+        if (mInternalPageChangeListener != null) {
+            mInternalPageChangeListener.onPageSelected(position);
+        }
+    }
+
+    private void dispatchOnScrollStateChanged(int state) {
+        if (mOnPageChangeListener != null) {
+            mOnPageChangeListener.onPageScrollStateChanged(state);
+        }
+        if (mOnPageChangeListeners != null) {
+            for (int i = 0, z = mOnPageChangeListeners.size(); i < z; i++) {
+                OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+                if (listener != null) {
+                    listener.onPageScrollStateChanged(state);
+                }
+            }
+        }
+        if (mInternalPageChangeListener != null) {
+            mInternalPageChangeListener.onPageScrollStateChanged(state);
+        }
     }
 
     private void completeScroll(boolean postEvents) {
@@ -1797,13 +1878,7 @@ public class ViewPager extends ViewGroup {
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             // Release the drag.
             if (DEBUG) Log.v(TAG, "Intercept done!");
-            mIsBeingDragged = false;
-            mIsUnableToDrag = false;
-            mActivePointerId = INVALID_POINTER;
-            if (mVelocityTracker != null) {
-                mVelocityTracker.recycle();
-                mVelocityTracker = null;
-            }
+            resetTouch();
             return false;
         }
 
@@ -1970,6 +2045,11 @@ public class ViewPager extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 if (!mIsBeingDragged) {
                     final int pointerIndex = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
+                    if (pointerIndex == -1) {
+                        // A child has consumed some touch events and put us into an inconsistent state.
+                        needsInvalidate = resetTouch();
+                        break;
+                    }
                     final float x = MotionEventCompat.getX(ev, pointerIndex);
                     final float xDiff = Math.abs(x - mLastMotionX);
                     final float y = MotionEventCompat.getY(ev, pointerIndex);
@@ -2021,17 +2101,13 @@ public class ViewPager extends ViewGroup {
                             totalDelta);
                     setCurrentItemInternal(nextPage, true, true, initialVelocity);
 
-                    mActivePointerId = INVALID_POINTER;
-                    endDrag();
-                    needsInvalidate = mLeftEdge.onRelease() | mRightEdge.onRelease();
+                    needsInvalidate = resetTouch();
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
                 if (mIsBeingDragged) {
                     scrollToItem(mCurItem, true, 0, false);
-                    mActivePointerId = INVALID_POINTER;
-                    endDrag();
-                    needsInvalidate = mLeftEdge.onRelease() | mRightEdge.onRelease();
+                    needsInvalidate = resetTouch();
                 }
                 break;
             case MotionEventCompat.ACTION_POINTER_DOWN: {
@@ -2051,6 +2127,14 @@ public class ViewPager extends ViewGroup {
             ViewCompat.postInvalidateOnAnimation(this);
         }
         return true;
+    }
+
+    private boolean resetTouch() {
+        boolean needsInvalidate;
+        mActivePointerId = INVALID_POINTER;
+        endDrag();
+        needsInvalidate = mLeftEdge.onRelease() | mRightEdge.onRelease();
+        return needsInvalidate;
     }
 
     private void requestParentDisallowInterceptTouchEvent(boolean disallowIntercept) {
